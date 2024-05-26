@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="row row-cols-1 g-4">
+      <div class="row my-4 align-items-end justify-content-around">
+        {% for rc in rec %}
+          <div class="card text-center col-md-1" style="width: 18rem;">
+            <img src="{{ rc.img.url }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{rc.name}}</h5>
+              <p class="card-text">Описание: {{ rc.description }}</p>
+              <p class="card-text">Время приготовления: {{ rc.cooking_time }} мин.</p>
+              <p class="card-text">Автор: {{ rc.author }}</p>
+              <div class="card-footer">
+                <a style='margin: 5px' href="{% url 'recipe_view' rc.id %}" class="btn btn-primary">Подробнее</a>
+                {% if rc.author == user %}
+                  <a href="{% url 'recipe_edit' rc.id %}" class="btn btn-primary">Редактировать</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+{% endblock content %}
